@@ -24,8 +24,10 @@
 
         <div class="projects-grid">
             @foreach ($projects as $project)
-                <article
+                <a
+                    href="{{ route('project.detail', $project['slug']) }}"
                     class="project reveal"
+                    style="text-decoration:none;color:inherit;display:block"
                     x-show="filter === 'All' || {{ json_encode($project['tech']) }}.includes(filter)"
                     x-transition:enter="transition ease-out duration-200"
                     x-transition:enter-start="opacity-0 scale-95"
@@ -62,28 +64,28 @@
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="12" height="12"><path d="M7 17L17 7M17 7H8M17 7V16" stroke-linecap="round" stroke-linejoin="round"/></svg>
                         </span>
                     </div>
-                </article>
+                </a>
             @endforeach
         </div>
     </div>
 </section>
 
-@script
 <script>
-    Alpine.data('projectFilter', () => ({
-        filter: 'All',
-        allTechs: @json($allTechs),
-        projects: @json(array_column($projects, 'tech')),
-        get tags() {
-            return ['All', ...this.allTechs];
-        },
-        get counts() {
-            const c = { All: this.projects.length };
-            this.allTechs.forEach(t => {
-                c[t] = this.projects.filter(p => p.includes(t)).length;
-            });
-            return c;
-        },
-    }));
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('projectFilter', () => ({
+            filter: 'All',
+            allTechs: @json($allTechs),
+            projects: @json(array_column($projects, 'tech')),
+            get tags() {
+                return ['All', ...this.allTechs];
+            },
+            get counts() {
+                const c = { All: this.projects.length };
+                this.allTechs.forEach(t => {
+                    c[t] = this.projects.filter(p => p.includes(t)).length;
+                });
+                return c;
+            },
+        }));
+    });
 </script>
-@endscript

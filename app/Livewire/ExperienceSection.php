@@ -2,22 +2,24 @@
 
 namespace App\Livewire;
 
+use App\Models\Experience;
+use Illuminate\View\View;
 use Livewire\Component;
 
 class ExperienceSection extends Component
 {
-    /**
-     * @var array<int, array{idx: string, role: string, company: string, location: string, duration: string}>
-     */
-    public array $experience = [
-        ['idx' => '01', 'role' => 'Senior Backend Developer', 'company' => 'Singapore-based Tech Co.', 'location' => 'Remote · Singapore', 'duration' => '2 Years'],
-        ['idx' => '02', 'role' => 'Fullstack Laravel Developer', 'company' => 'Regional SaaS Platform', 'location' => 'Jakarta · Indonesia', 'duration' => '2 Years'],
-        ['idx' => '03', 'role' => 'Backend Engineer', 'company' => 'Internal Tools Studio', 'location' => 'Remote', 'duration' => '1 Year'],
-        ['idx' => '04', 'role' => 'Junior PHP Developer', 'company' => 'Digital Agency', 'location' => 'Indonesia', 'duration' => '1.5 Years'],
-    ];
-
-    public function render(): \Illuminate\View\View
+    public function render(): View
     {
-        return view('livewire.experience-section');
+        $experience = Experience::orderBy('sort_order')->get()
+            ->map(fn ($e) => [
+                'idx' => $e->idx,
+                'role' => $e->role,
+                'company' => $e->company,
+                'location' => $e->location,
+                'duration' => $e->duration,
+            ])
+            ->all();
+
+        return view('livewire.experience-section', compact('experience'));
     }
 }

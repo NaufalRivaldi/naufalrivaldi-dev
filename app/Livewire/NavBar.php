@@ -2,11 +2,14 @@
 
 namespace App\Livewire;
 
+use Illuminate\View\View;
 use Livewire\Component;
 
 class NavBar extends Component
 {
-    public function render(): \Illuminate\View\View
+    public string $prefix = '';
+
+    public function render(): View
     {
         return view('livewire.nav-bar');
     }

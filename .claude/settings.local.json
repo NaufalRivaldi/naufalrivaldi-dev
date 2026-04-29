@@ -6,7 +6,11 @@
       "Bash(vendor/bin/pint *)",
       "Bash(npm run *)",
       "Bash(npx vite *)",
-      "Bash(npm install *)"
+      "Bash(npm install *)",
+      "mcp__laravel-boost__search-docs",
+      "Bash(composer require *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)"
     ]
   },
   "enableAllProjectMcpServers": true,

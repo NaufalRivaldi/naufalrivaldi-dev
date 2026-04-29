@@ -1,17 +1,17 @@
 <header class="nav" x-data="{ open: false }">
     <div class="container nav-inner">
-        <a href="#home" class="logo" @click="open = false">
+        <a href="{{ $prefix }}#home" class="logo" @click="open = false">
             <span class="dot"></span>
             <span>naufal.dev</span>
             <span class="logo-meta">Fullstack · PHP/Laravel</span>
         </a>
 
         <nav class="nav-links">
-            <a href="#services">Services</a>
-            <a href="#experience">Experience</a>
-            <a href="#projects">Projects</a>
-            <a href="#stack">Stack</a>
-            <a href="#contact">Contact</a>
+            <a href="{{ $prefix }}#services">Services</a>
+            <a href="{{ $prefix }}#experience">Experience</a>
+            <a href="{{ $prefix }}#projects">Projects</a>
+            <a href="{{ $prefix }}#stack">Stack</a>
+            <a href="{{ $prefix }}#contact">Contact</a>
         </nav>
 
         <div class="nav-right">
@@ -43,11 +43,11 @@
     </div>
 
     <div class="nav-drawer" :class="{ open: open }">
-        <a href="#services" @click="open = false"><span>Services</span><span class="num">01</span></a>
-        <a href="#experience" @click="open = false"><span>Experience</span><span class="num">02</span></a>
-        <a href="#projects" @click="open = false"><span>Projects</span><span class="num">03</span></a>
-        <a href="#stack" @click="open = false"><span>Stack</span><span class="num">04</span></a>
-        <a href="#contact" @click="open = false"><span>Contact</span><span class="num">05</span></a>
+        <a href="{{ $prefix }}#services" @click="open = false"><span>Services</span><span class="num">01</span></a>
+        <a href="{{ $prefix }}#experience" @click="open = false"><span>Experience</span><span class="num">02</span></a>
+        <a href="{{ $prefix }}#projects" @click="open = false"><span>Projects</span><span class="num">03</span></a>
+        <a href="{{ $prefix }}#stack" @click="open = false"><span>Stack</span><span class="num">04</span></a>
+        <a href="{{ $prefix }}#contact" @click="open = false"><span>Contact</span><span class="num">05</span></a>
         <div class="drawer-foot">
             <a href="mailto:naufal.rivaldi33@gmail.com">→ naufal.rivaldi33@gmail.com</a>
             <a href="https://www.linkedin.com/in/naufal-rivaldi-18b385158/" target="_blank" rel="noreferrer">→ LinkedIn</a>

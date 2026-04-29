@@ -11,7 +11,12 @@
 
         <div class="services-grid">
             @foreach ($services as $service)
-                <div class="service{{ $service['featured'] ? ' featured' : '' }} reveal" data-n="{{ $service['n'] }}">
+                <a
+                    href="{{ route('service.detail', $service['slug']) }}"
+                    class="service{{ $service['featured'] ? ' featured' : '' }} reveal"
+                    data-n="{{ $service['n'] }}"
+                    style="text-decoration:none;color:inherit;display:block"
+                >
                     <div class="icon-box">
                         @if ($service['icon'] === 'code')
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 9l-4 3 4 3M16 9l4 3-4 3M14 6l-4 12" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -29,7 +34,7 @@
                         Read more
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="12" height="12" class="arrow"><path d="M7 17L17 7M17 7H8M17 7V16" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     </span>
-                </div>
+                </a>
             @endforeach
         </div>
     </div>

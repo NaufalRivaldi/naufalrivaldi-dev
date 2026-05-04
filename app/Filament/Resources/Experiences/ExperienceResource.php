@@ -13,6 +13,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class ExperienceResource extends Resource
 {
@@ -21,6 +22,8 @@ class ExperienceResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBriefcase;
 
     protected static ?int $navigationSort = 2;
+
+    protected static string|UnitEnum|null $navigationGroup = 'Management';
 
     public static function form(Schema $schema): Schema
     {

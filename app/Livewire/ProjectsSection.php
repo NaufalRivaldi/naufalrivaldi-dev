@@ -10,16 +10,17 @@ class ProjectsSection extends Component
 {
     public function render(): View
     {
-        $projects = Project::orderBy('sort_order')->get()
+        $projects = Project::with('media')->orderBy('sort_order')->get()
             ->map(fn ($p) => [
                 'id' => $p->id,
                 'slug' => $p->slug,
                 'title' => $p->title,
+                'subtitle' => $p->subtitle,
                 'tag' => $p->tag,
-                'desc' => $p->desc,
                 'tech' => $p->tech,
                 'featured' => $p->featured,
                 'year' => $p->year,
+                'main_image_url' => $p->getFirstMediaUrl('main_image'),
             ])
             ->all();
 

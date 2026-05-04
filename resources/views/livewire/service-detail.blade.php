@@ -6,37 +6,29 @@
                 <span class="sep">/</span>
                 <a href="/#services">Services</a>
                 <span class="sep">/</span>
-                <span class="here">{{ $service['title'] }}</span>
+                <span class="here">{{ $service->title }}</span>
             </div>
 
-            <div style="display:flex;align-items:center;gap:16px;margin-bottom:28px">
+            <div class="detail-icon-header">
                 <div class="detail-icon-box">
-                    @if ($service['icon'] === 'code')
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" width="24" height="24"><path d="M8 9l-4 3 4 3M16 9l4 3-4 3M14 6l-4 12" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    @elseif ($service['icon'] === 'server')
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" width="24" height="24"><rect x="3" y="4" width="18" height="7" rx="1.5"/><rect x="3" y="13" width="18" height="7" rx="1.5"/><path d="M7 7.5h.01M7 16.5h.01M11 7.5h4M11 16.5h4" stroke-linecap="round"/></svg>
-                    @elseif ($service['icon'] === 'phone')
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" width="24" height="24"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2" stroke-linecap="round"/></svg>
-                    @else
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" width="24" height="24"><ellipse cx="12" cy="5" rx="8" ry="2.5"/><path d="M4 5v7c0 1.4 3.6 2.5 8 2.5s8-1.1 8-2.5V5"/><path d="M4 12v7c0 1.4 3.6 2.5 8 2.5s8-1.1 8-2.5v-7"/></svg>
-                    @endif
+                    <x-service-icon :icon="$service->icon" />
                 </div>
                 <span style="font-family:var(--f-mono);font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--fg-muted)">
-                    Service · {{ $service['n'] }}
+                    Service · {{ $serviceNumber }}
                 </span>
             </div>
 
-            <h1 class="detail-title">{{ $service['title'] }}.</h1>
-            <p class="detail-tagline">{{ $service['tagline'] }}</p>
+            <h1 class="detail-title">{{ $service->title }}.</h1>
+            <p class="detail-tagline">{{ $service->subtitle }}</p>
 
             <div class="detail-meta">
                 <div>
                     <span class="m-k">Best for</span>
-                    <span class="m-v">{{ $service['bestFor'] }}</span>
+                    <span class="m-v">{{ $service->best_for }}</span>
                 </div>
                 <div>
                     <span class="m-k">Typical engagement</span>
-                    <span class="m-v">6–24 weeks</span>
+                    <span class="m-v">{{ $service->engagement_duration }}</span>
                 </div>
                 <div>
                     <span class="m-k">Availability</span>
@@ -52,7 +44,7 @@
                 <div class="detail-grid">
                     <h3>// Overview</h3>
                     <div class="block-body">
-                        <p>{{ $service['short'] }}</p>
+                        <p>{{ $service->overview }}</p>
                     </div>
                 </div>
             </div>
@@ -62,7 +54,7 @@
                     <h3>// What you get</h3>
                     <div class="block-body">
                         <ul>
-                            @foreach ($service['deliverables'] as $deliverable)
+                            @foreach ($service->deliverables as $deliverable)
                                 <li>{{ $deliverable }}</li>
                             @endforeach
                         </ul>
@@ -75,11 +67,11 @@
                     <h3>// Process</h3>
                     <div class="block-body">
                         <div class="process">
-                            @foreach ($service['process'] as $step)
+                            @foreach ($service->process as $step)
                                 <div class="step">
-                                    <span class="k">{{ $step['k'] }} / step</span>
-                                    <h4 class="t">{{ $step['t'] }}</h4>
-                                    <p class="d">{{ $step['d'] }}</p>
+                                    <span class="k">{{ sprintf('%02d', $loop->iteration) }} / step</span>
+                                    <h4 class="t">{{ $step['title'] }}</h4>
+                                    <p class="d">{{ $step['description'] }}</p>
                                 </div>
                             @endforeach
                         </div>
@@ -92,7 +84,7 @@
                     <h3>// Stack I use</h3>
                     <div class="block-body">
                         <div class="tech-pills">
-                            @foreach ($service['tech'] as $tech)
+                            @foreach ($service->tech_stack as $tech)
                                 <span>{{ $tech }}</span>
                             @endforeach
                         </div>
@@ -105,7 +97,7 @@
                     <h3>// Next step</h3>
                     <div class="block-body">
                         <p>Tell me about your project. I'll reply within 24 hours with a scoping call or a short written plan.</p>
-                        <div style="margin-top:24px;display:flex;gap:10px;flex-wrap:wrap">
+                        <div class="detail-cta-row">
                             <a href="/#contact" class="btn btn-primary">
                                 Start a project
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="12" height="12" class="arrow"><path d="M7 17L17 7M17 7H8M17 7V16" stroke-linecap="round" stroke-linejoin="round"/></svg>

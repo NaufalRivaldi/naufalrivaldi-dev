@@ -7,11 +7,16 @@
     "license": "MIT",
     "require": {
         "php": "^8.3",
+        "artesaos/seotools": "^1.4",
         "cloudinary/cloudinary_php": "^3.1",
+        "codebar-ag/laravel-flysystem-cloudinary": "^13.0",
         "filament/filament": "^4.7",
+        "filament/spatie-laravel-media-library-plugin": "^4.0",
         "laravel/framework": "^13.0",
         "laravel/tinker": "^3.0",
-        "livewire/livewire": "^3.5"
+        "livewire/livewire": "^3.5",
+        "spatie/laravel-settings": "^3.8",
+        "spatie/laravel-sitemap": "^8.1"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

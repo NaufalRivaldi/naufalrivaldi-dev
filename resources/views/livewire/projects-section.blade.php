@@ -35,13 +35,21 @@
                     wire:key="project-{{ $project['id'] }}"
                 >
                     <div class="project-thumb">
-                        <div class="browser-chrome"><i></i><i></i><i></i></div>
-                        <div class="pv">
-                            <div class="bar accent"></div>
-                            <div class="bar"></div>
-                            <div class="bar short"></div>
-                            <div class="grid-mini"><div></div><div></div><div></div></div>
-                        </div>
+                        @if ($project['main_image_url'])
+                            <img
+                                src="{{ $project['main_image_url'] }}"
+                                alt="{{ $project['title'] }}"
+                                class="thumb-img"
+                            />
+                        @else
+                            <div class="browser-chrome"><i></i><i></i><i></i></div>
+                            <div class="pv">
+                                <div class="bar accent"></div>
+                                <div class="bar"></div>
+                                <div class="bar short"></div>
+                                <div class="grid-mini"><div></div><div></div><div></div></div>
+                            </div>
+                        @endif
                     </div>
                     <div class="project-body">
                         <div class="project-meta">
@@ -53,7 +61,7 @@
                             @endif
                         </div>
                         <h3>{{ $project['title'] }}</h3>
-                        <p>{{ $project['desc'] }}</p>
+                        <p>{{ $project['subtitle'] }}</p>
                         <div class="project-tags">
                             @foreach ($project['tech'] as $tech)
                                 <span>{{ $tech }}</span>

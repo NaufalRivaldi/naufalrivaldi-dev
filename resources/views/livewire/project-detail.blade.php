@@ -18,7 +18,7 @@
             </div>
 
             <h1 class="detail-title">{{ $project['title'] }}.</h1>
-            <p class="detail-tagline">{{ $project['short'] }}</p>
+            <p class="detail-tagline">{{ $project['subtitle'] }}</p>
 
             <div class="detail-meta">
                 <div>
@@ -40,35 +40,43 @@
             </div>
 
             <div class="detail-banner">
-                <div class="chrome">
-                    <i></i><i></i><i></i>
-                    <span class="url">~/ {{ $project['slug'] }}.app</span>
-                </div>
-                <div class="art">
-                    <div class="sidebar">
-                        <div class="bar active"></div>
-                        <div class="bar short"></div>
-                        <div class="bar short"></div>
-                        <div class="bar"></div>
-                        <div class="bar short"></div>
+                @if ($project['main_image_url'])
+                    <img
+                        src="{{ $project['main_image_url'] }}"
+                        alt="{{ $project['title'] }}"
+                        class="detail-banner-img"
+                    />
+                @else
+                    <div class="chrome">
+                        <i></i><i></i><i></i>
+                        <span class="url">~/ {{ $project['slug'] }}.app</span>
                     </div>
-                    <div class="main">
-                        <div class="row">
-                            @foreach (array_slice($project['outcome'], 0, 3) as $i => $out)
-                                <div class="card {{ $i === 0 ? 'accent' : '' }}">
-                                    <div class="h"></div>
-                                    <div class="num">{{ $out['v'] }}</div>
-                                </div>
-                            @endforeach
+                    <div class="art">
+                        <div class="sidebar">
+                            <div class="bar active"></div>
+                            <div class="bar short"></div>
+                            <div class="bar short"></div>
+                            <div class="bar"></div>
+                            <div class="bar short"></div>
                         </div>
-                        <div class="chart">
-                            <svg viewBox="0 0 400 120" preserveAspectRatio="none">
-                                <polyline fill="none" stroke="var(--accent)" stroke-width="2" points="0,90 40,80 80,85 120,65 160,55 200,60 240,40 280,45 320,25 360,20 400,10" />
-                                <polyline fill="none" stroke="var(--fg-muted)" stroke-width="1" stroke-dasharray="3 3" points="0,70 400,70" />
-                            </svg>
+                        <div class="main">
+                            <div class="row">
+                                @foreach (array_slice($project['outcome'], 0, 3) as $i => $out)
+                                    <div class="card {{ $i === 0 ? 'accent' : '' }}">
+                                        <div class="h"></div>
+                                        <div class="num">{{ $out['v'] }}</div>
+                                    </div>
+                                @endforeach
+                            </div>
+                            <div class="chart">
+                                <svg viewBox="0 0 400 120" preserveAspectRatio="none">
+                                    <polyline fill="none" stroke="var(--accent)" stroke-width="2" points="0,90 40,80 80,85 120,65 160,55 200,60 240,40 280,45 320,25 360,20 400,10" />
+                                    <polyline fill="none" stroke="var(--fg-muted)" stroke-width="1" stroke-dasharray="3 3" points="0,70 400,70" />
+                                </svg>
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endif
             </div>
         </div>
     </section>
@@ -109,21 +117,23 @@
                 </div>
             </div>
 
-            <div class="block">
-                <div class="detail-grid">
-                    <h3>// Gallery</h3>
-                    <div class="block-body">
-                        <div class="gallery">
-                            @foreach ($project['gallery'] as $shot)
-                                <div class="shot">
-                                    <div class="chrome"><i></i><i></i><i></i></div>
-                                    <div class="label">{{ $shot }}.png</div>
-                                </div>
-                            @endforeach
+            @if (!empty($project['gallery_urls']))
+                <div class="block">
+                    <div class="detail-grid">
+                        <h3>// Gallery</h3>
+                        <div class="block-body">
+                            <div class="gallery">
+                                @foreach ($project['gallery_urls'] as $url)
+                                    <div class="shot">
+                                        <div class="chrome"><i></i><i></i><i></i></div>
+                                        <img src="{{ $url }}" alt="Gallery screenshot" class="shot-img" />
+                                    </div>
+                                @endforeach
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            @endif
 
             <div class="block">
                 <div class="detail-grid">

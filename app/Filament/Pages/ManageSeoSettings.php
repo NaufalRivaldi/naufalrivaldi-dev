@@ -28,6 +28,8 @@ class ManageSeoSettings extends Page
 
     protected static string|UnitEnum|null $navigationGroup = 'Settings';
 
+    protected static ?int $navigationSort = 99;
+
     protected static ?string $title = 'SEO Settings';
 
     protected string $view = 'filament.pages.manage-seo-settings';

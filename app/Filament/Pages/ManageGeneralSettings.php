@@ -26,6 +26,8 @@ class ManageGeneralSettings extends Page
 
     protected static string|UnitEnum|null $navigationGroup = 'Settings';
 
+    protected static ?int $navigationSort = 99;
+
     protected static ?string $title = 'General Settings';
 
     protected string $view = 'filament.pages.manage-general-settings';

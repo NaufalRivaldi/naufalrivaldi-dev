@@ -40,6 +40,34 @@
             },
             init() {},
         }));
+
+        Alpine.data('galleryLightbox', (urls) => ({
+            images: urls,
+            isOpen: false,
+            current: 0,
+            touchStartX: null,
+            openAt(i) {
+                this.current = i;
+                this.isOpen = true;
+                document.body.style.overflow = 'hidden';
+            },
+            close() {
+                this.isOpen = false;
+                document.body.style.overflow = '';
+            },
+            prev() {
+                this.current = (this.current - 1 + this.images.length) % this.images.length;
+            },
+            next() {
+                this.current = (this.current + 1) % this.images.length;
+            },
+            onSwipe(e) {
+                if (this.touchStartX === null) return;
+                const delta = e.changedTouches[0].clientX - this.touchStartX;
+                if (Math.abs(delta) > 50) { delta < 0 ? this.next() : this.prev(); }
+                this.touchStartX = null;
+            },
+        }));
     });
 </script>
 

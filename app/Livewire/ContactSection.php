@@ -2,12 +2,16 @@
 
 namespace App\Livewire;
 
+use App\Settings\GeneralSettings;
+use Illuminate\View\View;
 use Livewire\Component;
 
 class ContactSection extends Component
 {
-    public function render(): \Illuminate\View\View
+    public function render(): View
     {
-        return view('livewire.contact-section');
+        $settings = app(GeneralSettings::class);
+
+        return view('livewire.contact-section', ['settings' => $settings]);
     }
 }

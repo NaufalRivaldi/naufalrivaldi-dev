@@ -2,6 +2,11 @@
 
 namespace App\Livewire;
 
+use App\Mail\ContactInquiry;
+use App\Settings\GeneralSettings;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\View\View;
 use Livewire\Component;
 
 class ContactForm extends Component
@@ -35,17 +40,37 @@ class ContactForm extends Component
 
     public function submit(): void
     {
+        $key = 'contact:'.\request()->ip();
+
+        if (RateLimiter::tooManyAttempts($key, 3)) {
+            $seconds = RateLimiter::availableIn($key);
+            $this->addError('message', "Too many submissions. Please try again in {$seconds} seconds.");
+
+            return;
+        }
+
         $this->validate();
 
-        // TODO: Replace with Mail::send() or notification in production.
+        $settings = app(GeneralSettings::class);
+
+        Mail::to($settings->contact_email)
+            ->send(new ContactInquiry(
+                senderName: $this->name,
+                senderEmail: $this->email,
+                topic: $this->subject,
+                body: $this->message,
+            ));
+
+        RateLimiter::hit($key, 3600);
+
         $this->sent = true;
-        $this->reset(['name', 'email', 'subject', 'message']);
+        $this->reset(['name', 'email', 'message']);
         $this->subject = 'Project inquiry';
 
         $this->dispatch('form-sent');
     }
 
-    public function render(): \Illuminate\View\View
+    public function render(): View
     {
         return view('livewire.contact-form');
     }

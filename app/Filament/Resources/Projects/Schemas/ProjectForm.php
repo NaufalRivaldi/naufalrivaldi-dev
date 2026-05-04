@@ -68,6 +68,7 @@ class ProjectForm
                                             ->label('Main Image')
                                             ->collection('main_image')
                                             ->image()
+                                            ->visibility('public')
                                             ->imagePreviewHeight('200')
                                             ->columnSpanFull(),
                                         SpatieMediaLibraryFileUpload::make('gallery')
@@ -75,6 +76,7 @@ class ProjectForm
                                             ->collection('gallery')
                                             ->multiple()
                                             ->image()
+                                            ->visibility('public')
                                             ->imagePreviewHeight('150')
                                             ->reorderable()
                                             ->columnSpanFull(),

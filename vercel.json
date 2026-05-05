@@ -1,6 +1,7 @@
 {
     "version": 2,
     "framework": null,
+    "buildCommand": "yarn install && yarn build",
     "outputDirectory": "public",
     "functions": {
         "api/index.php": {
@@ -8,6 +9,7 @@
         }
     },
     "routes": [
+        { "handle": "filesystem" },
         { "src": "/(.*)", "dest": "/api/index.php" }
     ]
 }

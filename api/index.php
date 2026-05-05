@@ -12,8 +12,32 @@ foreach ([
     '/tmp/storage/framework/cache/data',
     '/tmp/storage/framework/sessions',
     '/tmp/storage/logs',
+    '/tmp/bootstrap/cache',
 ] as $dir) {
-    if (!is_dir($dir)) @mkdir($dir, 0755, true);
+    if (! is_dir($dir)) {
+        @mkdir($dir, 0755, true);
+    }
+}
+
+// Redirect Laravel's bootstrap cache to /tmp (Vercel filesystem is read-only)
+$bootstrapCacheDir = '/tmp/bootstrap/cache';
+foreach ([
+    'APP_PACKAGES_CACHE' => $bootstrapCacheDir.'/packages.php',
+    'APP_SERVICES_CACHE' => $bootstrapCacheDir.'/services.php',
+    'APP_CONFIG_CACHE' => $bootstrapCacheDir.'/config.php',
+    'APP_ROUTES_CACHE' => $bootstrapCacheDir.'/routes-v7.php',
+    'APP_EVENTS_CACHE' => $bootstrapCacheDir.'/events.php',
+] as $key => $path) {
+    putenv("{$key}={$path}");
+    $_ENV[$key] = $path;
+    $_SERVER[$key] = $path;
+}
+
+// Copy pre-built packages manifest from deployment into /tmp on cold starts
+$builtPackages = __DIR__.'/../bootstrap/cache/packages.php';
+$tmpPackages = $bootstrapCacheDir.'/packages.php';
+if (file_exists($builtPackages) && ! file_exists($tmpPackages)) {
+    copy($builtPackages, $tmpPackages);
 }
 
 try {

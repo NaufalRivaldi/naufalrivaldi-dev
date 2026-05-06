@@ -6,7 +6,7 @@
                 <h2 class="sec-title">Selected<br/><em>projects.</em></h2>
             </div>
             <p>Eight recent projects — from Filament admin dashboards to headless Next.js storefronts. Filter by the stack you care about.</p>
-            <span class="btn btn-ghost" style="align-self:end;pointer-events:none">{{ count($projects) }} shown</span>
+            <span class="btn btn-ghost projects-count" style="align-self:end;pointer-events:none">{{ count($projects) }} shown</span>
         </div>
 
         <div class="projects-filter">

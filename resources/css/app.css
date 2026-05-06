@@ -449,10 +449,12 @@ section { padding: clamp(60px, 8vw, 120px) 0; position: relative; }
 
 /* ============ PROJECTS ============ */
 .projects-filter {
-  display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 36px;
+  display: flex; gap: 8px; flex-wrap: nowrap; margin-bottom: 36px;
   padding: 6px; border: 1px solid var(--line); border-radius: 999px;
-  background: var(--card); width: max-content; max-width: 100%; overflow-x: auto;
+  background: var(--card); overflow-x: auto; max-width: 100%;
+  scrollbar-width: none;
 }
+.projects-filter::-webkit-scrollbar { display: none; }
 .filter-btn {
   padding: 8px 16px; border-radius: 999px;
   font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
@@ -461,6 +463,8 @@ section { padding: clamp(60px, 8vw, 120px) 0; position: relative; }
 .filter-btn:hover { color: var(--fg); }
 .filter-btn.active { background: var(--fg); color: var(--bg); }
 .filter-btn .count { opacity: 0.6; margin-left: 4px; }
+.projects-count { width: max-content; }
+@media (max-width: 839px) { .projects-count { display: none; } }
 .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
 .project {
   background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
